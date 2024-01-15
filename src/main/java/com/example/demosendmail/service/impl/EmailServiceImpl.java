@@ -13,12 +13,12 @@ public class EmailServiceImpl implements EmailService {
     private JavaMailSender mailSender;
 
     @Override
-    public String sendMessage(String text) {
+    public String sendMessage(String to, String subject, String content) {
         SimpleMailMessage message = new SimpleMailMessage();
         message.setFrom("noreply@demo.com");
-        message.setTo("duongdd141100@gmail.com");
-        message.setSubject("Demo Subject");
-        message.setText(text);
+        message.setTo(to);
+        message.setSubject(subject);
+        message.setText(content);
         mailSender.send(message);
 
         return "ok";

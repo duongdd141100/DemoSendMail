@@ -16,14 +16,16 @@ public class EmailServiceImpl implements EmailService {
     private JavaMailSender mailSender;
 
     @Override
-    public String sendMessage(String to, String subject, String content, MultipartFile attachFile) throws MessagingException {
+    public String sendMessage(String to, String subject, String content, MultipartFile... attachFile) throws MessagingException {
         MimeMessage message = mailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message, true);
         helper.setFrom("noreply@demo.com");
         helper.setTo(to);
         helper.setSubject(subject);
-        helper.addAttachment("AttachFile.png", attachFile);
         helper.setText(content);
+        for (MultipartFile file : attachFile) {
+            helper.addAttachment(file.getOriginalFilename(), file);
+        }
         mailSender.send(message);
 
         return "ok";

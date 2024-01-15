@@ -22,7 +22,7 @@ public class SendMailController {
     public String sendMail(@RequestPart String to,
                            @RequestPart String subject,
                            @RequestPart String content,
-                           @RequestPart MultipartFile attachFile) {
+                           @RequestPart MultipartFile... attachFile) {
         try {
             return emailService.sendMessage(to, subject, content, attachFile);
         } catch (Exception e) {
